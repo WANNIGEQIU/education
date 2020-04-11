@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxy.base.mapper.EduMenuMapper">
+
+    <select id="selectAllPermissionValue" resultType="java.lang.String">
+         select
+        permission_value
+        from edu_menu
+        where type = 2
+        and did = 0
+    </select>
+    <select id="selectPermissionValueByUserId" resultType="java.lang.String">
+        select
+        p.permission_value
+        from edu_admin_role ur
+        inner join edu_role_menu rp on rp.role_id = ur.role_id
+        inner join edu_menu p on p.id = rp.menu_id
+        where ur.user_id = #{id}
+        and p.type = 2
+        and ur.did = 0
+        and p.did = 0
+    </select>
+    <sql id="columns">
+        p.id,p.mid,p.name,p.type,p.permission_value,path,p.component,p.icon,p.status,p.did,p.edu_create,p.edu_modified
+    </sql>
+    <select id="selectPermissionByUserId" resultType="com.galaxy.base.entity.EduMenu">
+        select
+        <include refid="columns" />
+        from edu_admin_role ur
+        inner join edu_role_menu rp on rp.role_id = ur.role_id
+        inner join edu_menu p on p.id = rp.menu_id
+        where ur.user_id = #{userId}
+        and ur.did = 0
+        and p.did = 0
+    </select>
+</mapper>

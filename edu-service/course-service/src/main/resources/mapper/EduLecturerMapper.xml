@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxy.course.mapper.EduLecturerMapper">
+
+
+    <sql id="query">
+       id, name, intro, career, level, head, sort, did, edu_create, edu_modified    </sql>
+
+    <select id="queryCondtion" resultType="com.galaxy.course.entity.EduLecturer" >
+        select <include refid="query"/>
+        from edu_lecturer where did = 0
+        <if test="param2.name !=null and param2.name !=''">
+            and name like concat(concat("%",#{param2.name},"%"))
+        </if>
+        <if test="param2.beginTime !=null">
+            and  <![CDATA[ edu_create >=#{param2.beginTime}]]>
+        </if>
+        <if test="param2.endTime !=null">
+            and  <![CDATA[ edu_create <=#{param2.endTime}]]>
+        </if>
+            <if test="param2.level !=null and param2.level !=''">
+                and level = #{param2.level}
+            </if>
+    </select>
+
+    <select id="queryDeleted" resultType="com.galaxy.course.entity.EduLecturer">
+        SELECT * FROM  edu_lecturer  WHERE did = 1
+    </select>
+    <select id="queryPopularLecturer" resultType="com.galaxy.course.entity.EduLecturer">
+        SELECT
+	*
+FROM
+	edu_lecturer let
+WHERE
+	let.did = 0
+	AND let.level = 3
+ORDER BY
+	let.sort
+	LIMIT 0,8
+    </select>
+
+    <delete id="realDelete" parameterType="string">
+        DELETE FROM edu_lecturer WHERE did =1 and id = #{id};
+    </delete>
+
+<update id="recoverLecturer" parameterType="map">
+    UPDATE edu_lecturer set did = 0,edu_modified = #{time} WHERE did = 1 and id =#{id}
+</update>
+</mapper>

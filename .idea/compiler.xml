@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="course-service" />
+        <module name="base-service" />
+        <module name="edu-security" />
+        <module name="cloud-service" />
+        <module name="statistics-service" />
+        <module name="cloud-api" />
+        <module name="order-api" />
+        <module name="edu-center" />
+        <module name="message-service" />
+        <module name="order-service" />
+        <module name="member-api" />
+        <module name="xorder-api" />
+        <module name="course-api" />
+        <module name="edu-geteway" />
+        <module name="member-serivce" />
+        <module name="edu-common" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="edu-base" target="1.8" />
+      <module name="edu-security" target="1.8" />
+      <module name="order-api" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="base-service" options="-parameters" />
+      <module name="cloud-api" options="-parameters" />
+      <module name="cloud-service" options="-parameters" />
+      <module name="course-api" options="-parameters" />
+      <module name="course-service" options="-parameters" />
+      <module name="edu-api" options="-parameters" />
+      <module name="edu-base" options="-parameters" />
+      <module name="edu-center" options="-parameters" />
+      <module name="edu-common" options="-parameters" />
+      <module name="edu-geteway" options="-parameters" />
+      <module name="edu-security" options="-parameters" />
+      <module name="member-api" options="-parameters" />
+      <module name="member-serivce" options="-parameters" />
+      <module name="message-service" options="-parameters" />
+      <module name="order-api" options="-parameters" />
+      <module name="order-service" options="-parameters" />
+      <module name="statistics-service" options="-parameters" />
+      <module name="xorder-api" options="-parameters" />
+    </option>
+  </component>
+</project>

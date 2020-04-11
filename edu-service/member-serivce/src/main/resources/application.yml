@@ -1,0 +1,56 @@
+server:
+  port: 9091
+spring:
+  datasource:
+    url: jdbc:mysql://cdb-6odk6fce.cd.tencentcdb.com:10106/education?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: wangjingbo2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+  # 环境
+  profiles:
+    active: dev
+
+  application:
+    name: edu-member
+
+  rabbitmq:
+    addresses: 127.0.0.1
+    virtual-host: wangeqiu
+    username: wangeqiu
+    password: wangeqiu
+
+  #返回json时间格式 全局
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/*.xml
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+    # 逻辑删除
+logging:
+  level:
+    com.galaxy: debug
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9090/eureka
+    fetch-registry: true
+    register-with-eureka: true
+ribbon:
+  restclient:
+    enabled: true
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+member:         # 默认头像
+  avatar: https://edu-test123.oss-cn-beijing.aliyuncs.com/20200403/封面/a596fa25-4b4e-4923-9ae0-530ac19b394833eae38a-6907-488f-ae8e-1ddca8572de0file.jpeg

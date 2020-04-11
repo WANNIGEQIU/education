@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxy.member.mapper.MemberMapper">
+
+
+    <delete id="deleteUserList">
+         select * from edu_user
+        where deleted = 1
+        mtOrder by edu_create DESC
+    </delete>
+    <select id="queryNums" resultType="java.lang.Integer">
+          SELECT
+	COUNT( * )
+FROM
+	edu_user
+WHERE
+	DATE( edu_create ) =#{day}
+    </select>
+</mapper>

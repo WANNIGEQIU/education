@@ -1,0 +1,62 @@
+server:
+  port: 9095
+spring:
+  datasource:
+    url: jdbc:mysql://cdb-6odk6fce.cd.tencentcdb.com:10106/education?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: wangjingbo2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+  rabbitmq:
+    addresses: 127.0.0.1
+    virtual-host: wangeqiu
+    username: wangeqiu
+    password: wangeqiu
+
+  # 环境
+  profiles:
+    active: dev
+
+  application:
+    name: edu-order
+
+
+#返回json时间格式 全局
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:/mapper/*.xml
+logging:
+  level:
+    com.galaxy: debug
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9090/eureka
+    fetch-registry: true
+    register-with-eureka: true
+
+alipay:
+  appid: 2016101800714071
+  merchant_private_key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDPDD7o6vgzZGqo+IDAbV+C8Tr1KhF/pXQm6Nps0M33zbO5c/wK2MCPlleDCzDBt/vty4o4g0YMORBkTchJ42ZZQqe6avDzBhPbWSsbqsS1rXLZHn9RUkRk/nDYXFglNTDjqNWSYaACN/nOPgSlG5BfYjU/XQUPKAn962m3UuUJdBUCEGKJGaO/zk0i6q+k1roizp6wyj+9GkYhWBb3weBzROnWf3znMeUisBz1Dl33hCN4nHe9Uy4BKNnwHMdT37VScwR+f4e2s6XHuqIDBlAHTxvH8QqyArraiexZBwualOMmesyjBDDMxsISlrtJv9Q2D39Gh0vHxFA0tKWW4ypzAgMBAAECggEBAM2Ga2BL9msVb+chHrVlHJ1fllXNF6es9pq1JDVGJF6qu5AI+RVPSf5+j4oObqytVJAdLqygasUxU/stVvc5mtxaFSMwitPCoa1oWylQn4l0jn/GDT4NOsVB6YRsTjdJEKm8a5yt+eaZ6Af5eiTnMq3sT80BKkd8SEbdC4il6aMx40m9u9Pf/wBzvpLz/fEK0hDfBk/59Vx6Gvw6TmCscVoi8TU560q5xDsUeL0oqHOQ4wOcc2j0VraJOSt4NA1Y5u0qC8pA2NH+plYuct4O6O1uUx7cKrZmPNs94NXVE2VenuurnNeX2c78RFgLGHdOiqa77vlyXT8QnJFjh+rATbECgYEA/sE3D902CgX30UE1Ae3fMp7b9g3ZhzIzDc5V0hM8Japo4LMMGFqaSFicCEkCq8kKiQj+4vYkwmyOR/4Dr7XYFNrInP+mEocJUqr3Ryn24v4bIwRKSrsy9GlDpQUILMcZRZ3wod4RheX1sd6UcIbY8iBiFf0j5a9QptgeD9u0LlsCgYEA0A9VQ/qszuZMRiwY4TWv3MBoKjxx3t145JFOBqCNMsrDUVn2sLoUBJQ+OgqhAx9Uz7o/V7D//q8fde3Dk2sW9gFREK5vOoSXbEQxqAuZm66BToSW+cDTY/rK7Xx7BuBJqGCfopfhS9xobkd1ZYXICSrVlAxaYXVPRlyTdo9VX8kCgYBflgOg8jFqhV68pyjKdoQ+rBiANCYgchdx4K+WyRzSTSRY2xV4tdYZuxWgjjRwXFiVnkh0xEJ6qNyh6o9biHFxMb4AGnQnk39OA1QQ4Y//D7UC6IMvkxnFVxHIgyDUHEhBNMerFHWitewANzGfHxmbj8b91SN49NTgJUryTE9I7QKBgCJ4h93taDgXO8fcgnq9lFd0oU1uGkecVe04jb7XVs11foq55v88tRhVH0IqhKapyDlqWBhFQQSHKyU0sVR5R6KWcUHcRJ1jXlsXqUp4MYjzjoTdvs2+Psevw3M5ToDDJDD7YTdlBnS1HbA3sqGRWqT6LcyLh2XiM7IqoFviP3jRAoGBAK1GpCgMU9Wct7NbSkjFNYn8cqlQfbrVqW/jT2OJmq/6MhOZbz4bvem7Fy1f2btR/R2gNcCHNmlc9QK00BDzv9qu12WW/58ls22lA6XUXzxAPTciRDGwBZe8DaGJbeOZIpMuR0QqZcbmk7RE5XKz11TaBCgVGMPt5W0AoAP1vAuS
+  alipay_public_key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzww+6Or4M2RqqPiAwG1fgvE69SoRf6V0JujabNDN982zuXP8CtjAj5ZXgwswwbf77cuKOINGDDkQZE3ISeNmWUKnumrw8wYT21krG6rEta1y2R5/UVJEZP5w2FxYJTUw46jVkmGgAjf5zj4EpRuQX2I1P10FDygJ/etpt1LlCXQVAhBiiRmjv85NIuqvpNa6Is6esMo/vRpGIVgW98Hgc0Tp1n985zHlIrAc9Q5d94QjeJx3vVMuASjZ8BzHU9+1UnMEfn+HtrOlx7qiAwZQB08bx/EKsgK62onsWQcLmpTjJnrMowQwzMbCEpa7Sb/UNg9/RodLx8RQNLSlluMqcwIDAQAB
+  return_url: http://localhost:3000/order
+  notify_url: http://noejyv5mct.52http.net/order/pay
+  sign_type: RSA2
+  charset: utf-8
+  gatewayUrl: https://openapi.alipaydev.com/gateway.do
+
+# 支付账号  necrqo1612@sandbox.com
+
+shaxiang:
+  account: necrqo1612@sandbox.com
+  password: 111111

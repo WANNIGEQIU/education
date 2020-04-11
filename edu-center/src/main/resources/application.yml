@@ -1,0 +1,9 @@
+server:
+  port: 9090
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9090/eureka
+    fetch-registry: false           #获取服务
+    register-with-eureka: false     #注册服务
+    decoder-name: edu-center

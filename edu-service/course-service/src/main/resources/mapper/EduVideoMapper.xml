@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxy.course.mapper.EduVideoMapper">
+
+	<sql id="returnMap">
+		id,
+	course_id,
+	chapter_id,
+	title,
+	sort,
+	is_free,
+	play_count,
+	video_source_id,
+	duration,
+	status,
+	size,
+	edu_create,
+	edu_modified
+	</sql>
+    <select id="seleteids" resultType="integer">
+        select count(*) from edu_video where chapter_id = #{vsearch}
+    </select>
+    <select id="queryListForVideo" resultType="com.galaxy.course.entity.EduVideo">
+
+        SELECT
+	<include refid="returnMap"/>
+FROM
+	edu_video
+WHERE
+	chapter_id = #{id}
+ORDER BY
+	sort
+
+    </select>
+    <select id="queryVideoInfo" resultType="com.galaxy.course.entity.dto.VideoDto">
+	SELECT
+	v.id,
+	v.title,
+	v.video_source_id,
+	c.title AS courseName,
+	c.id AS courseId,
+	c.price AS price
+FROM
+	edu_video v
+	LEFT JOIN edu_course c ON v.course_id = c.id
+WHERE
+	v.id = #{id}
+
+	</select>
+
+</mapper>

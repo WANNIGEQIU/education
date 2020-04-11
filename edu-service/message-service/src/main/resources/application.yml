@@ -1,0 +1,36 @@
+spring:
+  datasource:
+    url: jdbc:mysql://cdb-6odk6fce.cd.tencentcdb.com:10106/education?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: wangjingbo2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+  application:
+    name: edu-message
+    rabbitmq:
+      addresses: 127.0.0.1
+      virtual-host: wangeqiu
+      username: wangeqiu
+      password: wangeqiu
+
+heimao:
+  message:
+    accessKeyId: LTAI4FjWumKutv5c9SWTwZ9i
+    accessKeySecret: kCD6X9EePO4fEZLXSBQi8tbLPd5Nfu
+    signName: 黑猫教育                  #短信名称
+    messageTemplate: SMS_182684378    #短信模板
+
+server:
+  port: 9092
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9090/eureka
+    fetch-registry: true
+    register-with-eureka: true
+    ribbon:
+      eureka:
+        enabled: true

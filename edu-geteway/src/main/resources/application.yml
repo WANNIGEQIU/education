@@ -1,0 +1,48 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: edu-gateway
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+
+#zuul:
+#  routes:
+#    api-lecturer.path: /lecturer/**
+#    api-lecturer.url: http://127.0.0.1:8008/lecturer
+#    api-course.path: /course/**
+#    api-course.url: http://127.0.0.1:8226/course
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://127.0.0.1:9099/eureka
+#  instance:
+#    prefer-ip-address: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9090/eureka
+    fetch-registry: true
+    register-with-eureka: true
+# 禁止对外提供服务
+zuul:
+  #ignored-services: heimao-statistics
+  sensitive-headers:         # 清除zuul过滤列表
+  add-host-header: true
+  host:
+    connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+    socket-timeout-millis: 60000   #socket超时
+  prefix: /api
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000
+
+

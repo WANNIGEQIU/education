@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxy.order.mapper.OrderMapper">
+
+
+<select id="queryOrder" resultType="com.galaxy.order.entity.vo.OrderVo">
+
+SELECT
+	o.id orderNo,
+	o.username,
+	o.total_amount orderPrice,
+	o.pay_amount payPrice,
+	o.pay_type,
+	o.source_type,
+	o.status orderStatus,
+	o.pay_time,
+	o.edu_create,
+	o.zfb_no,
+	i.course_name,
+	i.lecturer_name
+FROM
+	mt_order o
+	INNER JOIN order_item i ON o.id = i.order_no
+where o.did = 0
+		<if test="param2.userName !=null and param2.userName != ''">
+			and o.username = #{param2.userName}
+		</if>
+
+	<if test="param2.startTime !=null">
+		and  <![CDATA[ o.edu_create >=#{param2.startTime}]]>
+	</if>
+
+	<if test="param2.endTime !=null">
+		and  <![CDATA[ o.edu_create <=#{param2.endTime}]]>
+	</if>
+
+	<if test="param2.orderStatus !=null">
+		and o.status = #{param2.orderStatus}
+	</if>
+
+	<if test="param2.orderNo !=null and param2.orderNo !=''">
+		and o.id = #{param2.orderNo}
+	</if>
+
+
+
+
+
+</select>
+    <select id="queryOrderNum" resultType="java.lang.Integer">
+
+		 SELECT
+	COUNT( * )
+FROM
+	mt_order
+WHERE
+	DATE( edu_create ) = #{day}
+	</select>
+</mapper>

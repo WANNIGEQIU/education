@@ -1,0 +1,64 @@
+
+
+logging:
+  level:
+    com.galaxy: debug
+
+aliyun:
+  oss:
+    accessKeyId: LTAI4FjWumKutv5c9SWTwZ9i
+    accessKeySecret: kCD6X9EePO4fEZLXSBQi8tbLPd5Nfu
+    yourBucketName: edu-test123
+    endpoint: oss-cn-beijing.aliyuncs.com
+    address: https://edu-test123.oss-cn-beijing.aliyuncs.com
+
+
+tencent:
+   video:
+     secretId: AKIDMWS8ZUzn57ybz8k9sOfjX6PcjbEbegLk
+     secretKey: SpxqUv7AykSzJOGtHSbbMr6A2f2OksmQ
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9090/eureka
+    register-with-eureka: true
+    fetch-registry: true
+spring:
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  application:
+    name: edu-cloud
+
+  rabbitmq:
+    addresses: 127.0.0.1
+    virtual-host: wangeqiu
+    username: wangeqiu
+    password: wangeqiu
+  thymeleaf:
+    cache: false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    url: jdbc:mysql://cdb-6odk6fce.cd.tencentcdb.com:10106/education?characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: wangjingbo2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 9094
+profiles:
+  active: dev
+
+# 线程池
+async:
+  corePoolSize: 6
+  maxPoolSize: 20
+  queue: 10
+  threadName: sync-cloud-       # 线程池线程名前缀
+
+vod:
+  path: /Users/haha/my/education-pro/edu-service/cloud-service/web/vod       # 服务端路径

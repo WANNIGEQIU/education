@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.galaxy.course.mapper.EduCourseMapper">
+    <insert id="addUcourse" parameterType="map">
+
+		INSERT INTO edu_ucourse (id,course_id, username )
+VALUES
+	(#{id},#{courseId},#{username})
+	</insert>
+    <insert id="record" >
+		INSERT INTO edu_ucourse(id,username,course_id)
+VALUES(#{id},#{username},#{cid})
+	</insert>
+	<delete id="deleteStudyId">
+		DELETE from  edu_ucourse where course_id = #{cid} and username = #{username}
+	</delete>
+
+	<select id="getCourseInfo" resultType="com.galaxy.course.entity.dto.CourseInfoDto" parameterType="string">
+
+                SELECT
+	a.id,
+	a.lecturer_id,
+	a.category_id,
+	a.title,
+	a.price,
+	a.lesson_num,
+	a.cover,
+	a.category_pid,
+	b.id bid,
+	b.description
+FROM
+	edu_course a
+	INNER JOIN edu_course_description b ON a.id = b.id and a.id = #{id}
+
+
+
+    </select>
+
+    <sql id="queryall">
+	a.id,
+	a.lecturer_id,
+	a.category_id,
+	a.title,
+	a.price,
+	a.lesson_num,
+	a.cover,
+	a.category_pid,
+	a.buy_count,
+	a.view_count,
+	a.STATUS,
+	a.edu_create,
+	a.edu_modified,
+	b.id bid,
+	b.description,
+	c.id cid,
+	c.name,
+	c.intro,
+	c.career,
+	c.level,
+	d.title oneCategory,
+	e.title twoCategory
+	</sql>
+
+    <select id="selectCondtion" resultType="com.galaxy.course.entity.dto.CourseCondtionDto"
+            parameterType="com.galaxy.course.entity.dto.CourseInfoDto">
+
+        SELECT
+        <include refid="queryall"/>
+        FROM
+        edu_course a
+        LEFT JOIN edu_course_description b ON a.id = b.id
+        LEFT JOIN edu_lecturer c ON a.lecturer_id = c.id
+        LEFT JOIN edu_subject d on a.category_pid = d.id
+        LEFT JOIN edu_subject e on a.category_id = e.id
+        where a.price >= 0
+        <if test="param2.lecturerName !=null and param2.lecturerName != ''">
+            and c.name = #{param2.lecturerName}
+
+        </if>
+        <if test="param2.title !=null and param2.title !=''">
+
+            and a.title like concat(concat("%",#{param2.title},"%"))
+
+        </if>
+        <if test="param2.categoryPid !=null and param2.categoryPid !=''">
+            and d.title = #{param2.categoryPid}
+        </if>
+
+        <if test="param2.categoryId != null and param2.categoryId !=''">
+            and e.title = #{param2.categoryId}
+        </if>
+        <if test="param2.beginTime !=null">
+            and  <![CDATA[ a.edu_create >=#{param2.beginTime}]]>
+        </if>
+        <if test="param2.endTime !=null">
+            and  <![CDATA[ a.edu_create <=#{param2.endTime}]]>
+        </if>
+        <if test="param2.status == 1">
+			and a.status = "Draft"
+		</if>
+		<if test="param2.status == 2">
+			and a.status = "Publish"
+		</if>
+		<if test="param2.status == 3">
+			and a.status = "Lower"
+		</if>
+
+
+        <if test="param2.key !=null and param2.key !=''">
+			ORDER BY ${param2.key} ${param2.Order}
+
+		</if>
+
+
+
+    </select>
+    <select id="queryInfo" resultType="com.galaxy.course.entity.dto.CourseInfoDto">
+		SELECT
+	c.id,
+	c.title,
+	c.category_pid,
+	let.NAME AS lecturerName,
+	let.id AS lecturerId,
+	let.career AS career,
+	let.intro AS intro,
+	let.head ,
+	let.level,
+	c.buy_count AS buyCount,
+	c.view_Count AS viewCount,
+	c.cover,
+	c.status,
+	CONVERT ( c.price, DECIMAL ( 8, 2 ) ) AS price,
+	c.lesson_num,
+	des.description,
+	sub.title AS oneCategory,
+	su.title AS twoCategory
+FROM
+	edu_course c
+	INNER JOIN edu_course_description des ON c.id = des.id
+	LEFT JOIN edu_lecturer let ON c.lecturer_id = let.id
+	LEFT JOIN edu_subject sub ON c.category_pid = sub.id
+	LEFT JOIN edu_subject su ON c.category_id = su.id
+WHERE
+	c.id = #{id}
+
+	</select>
+    <select id="selectCourse8Lid" resultType="com.galaxy.common.bean.CourseVo">
+	SELECT
+	c.id,
+	c.lecturer_id,
+	c.category_id,
+	c.category_pid,
+	c.title,
+	CONVERT ( c.price, DECIMAL ( 8, 2 ) ) AS price,
+	c.lesson_num,
+	c.cover,
+	c.buy_count,
+	c.view_count,
+	c.status ,
+	d.description
+FROM
+	edu_course c
+	INNER JOIN edu_course_description d
+WHERE
+	c.id = d.id
+	AND c.lecturer_id = #{id}
+	AND c.status = "Publish"
+ORDER BY c.buy_count DESC
+	</select>
+    <select id="queryPopularCourse" resultType="com.galaxy.course.entity.EduCourse">
+		SELECT
+	*
+FROM
+	edu_course
+	WHERE status = 'Publish'
+ORDER BY
+	view_count DESC
+	LIMIT 0,
+	8
+	</select>
+    <select id="userIsBuy" resultType="java.lang.Integer">
+		SELECT
+	count( * )
+FROM
+	edu_ucourse
+WHERE
+	course_id = #{param1}
+	AND  username= #{param2}
+	</select>
+    <select id="getMyCourse1" resultType="com.galaxy.course.entity.EduUcourse">
+
+		SELECT
+	id,username,course_id
+FROM
+	edu_ucourse
+where username = #{username}
+
+	</select>
+    <select id="queryCourse" resultType="java.lang.Integer">
+	SELECT
+	count(*)
+FROM
+	edu_course
+WHERE
+	DATE( edu_create ) = #{day}
+	</select>
+    <select id="selectMyCourse" resultType="com.galaxy.course.entity.EduCourse">
+		     SELECT
+	c.*,u.username
+FROM
+	edu_ucourse u
+	LEFT JOIN edu_course c ON u.course_id = c.id
+WHERE
+	u.username = #{username}
+	</select>
+    <select id="findCid" resultType="java.lang.Integer">
+SELECT
+	count(*)
+FROM
+	edu_ucourse
+WHERE
+	course_id = #{param2}
+	AND username = #{param1}
+
+	</select>
+    <select id="orderquery" resultType="com.galaxy.common.bean.CourseBean">
+		select l.id lecturerId,l.name lecturerName, c.*
+		from edu_course c left join  edu_lecturer l
+		on c.lecturer_id = l.id where c.id = #{courseId}
+
+	</select>
+	<select id="selectBycourseL" resultType="com.galaxy.common.bean.CourseVo">
+
+
+SELECT
+	c.id,
+	c.category_id,
+	c.category_pid,
+	c.title,
+	c.cover,
+	c.price,
+	l.id lecturerId,
+	l.name lecturerName
+FROM
+	edu_course c
+	INNER JOIN edu_lecturer l ON c.lecturer_id = l.id
+WHERE
+	c.id = #{cid}
+	</select>
+</mapper>
