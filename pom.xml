@@ -17,18 +17,12 @@
     </parent>
 
     <modules>
-        <module>edu-service</module>
         <module>edu-api</module>
         <module>edu-service</module>
-        <module>edu-api/xorder-api</module>
         <module>edu-common</module>
         <module>edu-center</module>
         <module>edu-geteway</module>
-        <module>edu-api/cloud-api</module>
-        <module>edu-api/course-api</module>
-        <module>edu-api/member-api</module>
-        <module>edu-api/xorder-api</module>
-        <module>edu-service/base-service</module>
+
     </modules>
 
 
@@ -89,12 +83,7 @@
     </dependencyManagement>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+
     </build>
 
 

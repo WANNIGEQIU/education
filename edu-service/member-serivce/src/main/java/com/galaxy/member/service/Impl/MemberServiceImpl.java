@@ -111,10 +111,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Page<EduUser> deleteUserList(Page<EduUser> objectPage) {
-        Page<EduUser> page = this.memberMapper.deleteUserList(objectPage);
-
-        return page;
+    public PageVo<EduUser> deleteUserList(Page<EduUser> objectPage) {
+        Page<EduUser> eduUserPage = this.memberMapper.deleteUserList(objectPage);
+        return new PageVo<>(eduUserPage);
     }
 
     @Override

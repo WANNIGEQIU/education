@@ -3,11 +3,10 @@
 <mapper namespace="com.galaxy.member.mapper.MemberMapper">
 
 
-    <delete id="deleteUserList">
+    <select id="deleteUserList" resultType="com.galaxy.member.entity.EduUser">
          select * from edu_user
-        where deleted = 1
-        mtOrder by edu_create DESC
-    </delete>
+        where deleted = 1 order by edu_create DESC
+    </select>
     <select id="queryNums" resultType="java.lang.Integer">
           SELECT
 	COUNT( * )

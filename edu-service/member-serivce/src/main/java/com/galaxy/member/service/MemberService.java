@@ -28,7 +28,7 @@ public interface MemberService {
 
     boolean recoveryUser(String id);
 
-    Page<EduUser> deleteUserList(Page<EduUser> objectPage);
+    PageVo<EduUser> deleteUserList(Page<EduUser> objectPage);
 
     EduUser getUserInfo(String username);
 

@@ -125,29 +125,20 @@ public class EduAdminController {
         }
         EduAdmin eduAdmin = this.userService.selectByUsername(dto.getUsername());
 
-        // 开发者管理员
+        if (eduAdmin == null) {
+            throw new MyException(ResultEnum.USER_NOT_EXIST);
+        }
 
          if (eduAdmin.getUsername().equals(dto.getUsername()) && eduAdmin.getPassword().equals(MD5.encrypt(dto.getPassword()))) {
              String tokenSecret = JwtUtil.getTokenSecret(eduAdmin.getId(), eduAdmin.getUsername());
              map.put("token",tokenSecret);
+         }else {
+             throw new MyException(ResultEnum.USER_EROR_LOGIN);
          }
         return ResultCommon.resultOk(map);
     }
 
 
-    @GetMapping("/info")
-    public ResultCommon info(@RequestParam String token) {
-        System.out.println("token-admin: "+token);
-        Map<String, Object> map = new HashMap<>();
-
-        UserBean jwtForAdmin = JwtUtil.getJwtForAdmin(token);
-        String username = jwtForAdmin.getUsername();
-        map.put("name","root");
-        map.put("roles","[Root]");
-        map.put("avatar","https://edu-test123.oss-cn-beijing.aliyuncs.com/2020/01/13/33eae38a-6907-488f-ae8e-1ddca8572de0file.png");
-
-        return ResultCommon.resultOk(map);
-    }
 
 }
 

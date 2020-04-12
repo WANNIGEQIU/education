@@ -347,8 +347,8 @@ public class MemberController {
             throw new MyException(ResultEnum.PARAM_ERROR);
         }
         Page<EduUser> page1 = new Page<>(page, limit);
-        Page<EduUser> eduUserPage = this.memberService.deleteUserList(page1);
-        return ResultCommon.resultOk(eduUserPage);
+        PageVo<EduUser> pageVo = this.memberService.deleteUserList(page1);
+        return ResultCommon.resultOk(pageVo);
 
     }
 

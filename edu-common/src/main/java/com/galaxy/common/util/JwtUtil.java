@@ -161,13 +161,5 @@ public class JwtUtil {
     }
 
 
-    public static void main(String[] args) {
-       String id = "12";
-       String username = "test";
-       String phone = "119";
 
-
-        System.out.println("---------------------");
-
-    }
 }
